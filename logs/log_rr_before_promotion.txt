@@ -1,0 +1,73 @@
+Last login: Tue Feb 13 20:56:42 on ttys002
+ducnguyen@ucs-MacBook-Pro Work % ssh -i "secondary_key_pair.pem" ec2-user@ec2-54-202-42-178.us-west-2.compute.amazonaws.com
+The authenticity of host 'ec2-54-202-42-178.us-west-2.compute.amazonaws.com (54.202.42.178)' can't be established.
+ED25519 key fingerprint is SHA256:HeVJxRm1CWEMlU5NuG8NzJ4tZKw3nOPrQVHG/Av+Rc8.
+This host key is known by the following other names/addresses:
+    ~/.ssh/known_hosts:10: ec2-52-39-91-216.us-west-2.compute.amazonaws.com
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'ec2-54-202-42-178.us-west-2.compute.amazonaws.com' (ED25519) to the list of known hosts.
+Last login: Tue Feb 13 14:00:52 2024 from ec2-18-237-140-163.us-west-2.compute.amazonaws.com
+   ,     #_
+   ~\_  ####_        Amazon Linux 2
+  ~~  \_#####\
+  ~~     \###|       AL2 End of Life is 2025-06-30.
+  ~~       \#/ ___
+   ~~       V~' '->
+    ~~~         /    A newer version of Amazon Linux is available!
+      ~~._.   _/
+         _/ _/       Amazon Linux 2023, GA and supported until 2028-03-15.
+       _/m/'           https://aws.amazon.com/linux/amazon-linux-2023/
+
+4 package(s) needed for security, out of 8 available
+Run "sudo yum update" to apply all updates.
+-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+[ec2-user@ip-10-2-21-144 ~]$ mysql -u admin -h udacity-secondary-rds.colfln9eleko.us-west-2.rds.amazonaws.com -p
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 57
+Server version: 8.0.35 Source distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| UdacityPR1         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+MySQL [(none)]> use UdacityPR1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MySQL [UdacityPR1]> select * from UdacityPR1;
+ERROR 1146 (42S02): Table 'UdacityPR1.UdacityPR1' doesn't exist
+MySQL [UdacityPR1]> select * from User;      
++----+---------+-----+
+| ID | Name    | Age |
++----+---------+-----+
+|  1 | Ronaldo |  39 |
+|  2 | Messi   |  36 |
++----+---------+-----+
+2 rows in set (0.00 sec)
+
+MySQL [UdacityPR1]> INSERT INTO User(ID, Name, Age) VALUES (3, 'Ramos', 35), (4, 'Kane', 26);
+ERROR 1290 (HY000): The MySQL server is running with the --read-only option so it cannot execute this statement
+MySQL [UdacityPR1]> select * from User;
++----+---------+-----+
+| ID | Name    | Age |
++----+---------+-----+
+|  1 | Ronaldo |  39 |
+|  2 | Messi   |  36 |
++----+---------+-----+
+2 rows in set (0.00 sec)
+
+MySQL [UdacityPR1]> 
